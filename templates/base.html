@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}DevPedia — Энциклопедия программирования{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="header">
+        <div class="container header-inner">
+            <a href="{{ url_for('index') }}" class="logo">
+                <span class="logo-icon">&lt;/&gt;</span>
+                <div class="logo-text">
+                    <span class="logo-name">DevPedia</span>
+                    <small>Энциклопедия программирования</small>
+                </div>
+            </a>
+
+            <nav class="top-nav">
+                {% for cat_key, cat in categories.items() %}
+                <a href="{{ url_for('category', cat_key=cat_key) }}">{{ cat.title }}</a>
+                {% endfor %}
+            </nav>
+
+            <!-- Правая группа кнопок -->
+            <div class="header-actions">
+                <!-- Telegram button with dropdown -->
+                <div class="tg-wrapper" id="tgWrapper">
+                    <button class="icon-btn tg-btn" id="tgToggle" aria-label="Telegram">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
+                        </svg>
+                    </button>
+
+                </div>
+
+                <!-- Theme toggle -->
+                <button class="icon-btn" id="themeToggle" aria-label="Сменить тему">
+                    <svg class="theme-icon theme-icon--sun" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                        <line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+                    </svg>
+                    <svg class="theme-icon theme-icon--moon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+                    </svg>
+                </button>
+
+                <!-- Burger (mobile only) -->
+                <button class="icon-btn burger-btn" id="burgerBtn" aria-label="Меню" aria-expanded="false">
+                    <svg id="burgerIcon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="3" y1="6" x2="21" y2="6"/>
+                        <line x1="3" y1="12" x2="21" y2="12"/>
+                        <line x1="3" y1="18" x2="21" y2="18"/>
+                    </svg>
+                    <svg id="closeIcon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none">
+                        <line x1="18" y1="6" x2="6" y2="18"/>
+                        <line x1="6" y1="6" x2="18" y2="18"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Fullscreen mobile menu -->
+    <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+        <div class="mobile-menu__inner">
+            <p class="mobile-menu__label">Разделы</p>
+            <nav class="mobile-menu__nav">
+                {% for cat_key, cat in categories.items() %}
+                <a href="{{ url_for('category', cat_key=cat_key) }}" class="mobile-menu__link">{{ cat.title }}</a>
+                {% endfor %}
+            </nav>
+            <div class="mobile-menu__footer">
+                <button class="mobile-menu__tg" id="openTgModal" aria-label="Telegram канал">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
+                    </svg>
+                    Telegram канал
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="footer">
+        <div class="container footer-inner">
+            <button class="footer-brand footer-brand--btn" id="openAboutModal" aria-label="О сервисе">
+                <span class="logo-icon">&lt;/&gt;</span>
+                <span>DevPedia</span>
+            </button>
+            <p class="footer-text">Энциклопедия программирования для разработчиков</p>
+            <p class="footer-contact">Связаться с нами: <a href="https://t.me/Ketsu_Jk" target="_blank" rel="noopener" class="footer-contact-link">@Ketsu_Jk</a></p>
+            <p class="footer-copy">© 2026 DevPedia — учебный проект</p>
+        </div>
+    </footer>
+
+    <!-- Модальное окно «О сервисе» -->
+    <div class="modal-overlay" id="aboutModal" role="dialog" aria-modal="true" aria-labelledby="aboutModalTitle">
+        <div class="modal-box">
+            <button class="modal-close" id="closeAboutModal" aria-label="Закрыть">&times;</button>
+            <div class="modal-logo">
+                <span class="logo-icon logo-icon--lg">&lt;/&gt;</span>
+                <span class="modal-logo-name">DevPedia</span>
+            </div>
+            <h2 class="modal-title" id="aboutModalTitle">О сервисе</h2>
+            <p class="modal-desc">
+                <strong>DevPedia</strong> — это учебный проект, созданный в рамках учёбы.
+                Сайт представляет собой энциклопедию по программированию для разработчиков.
+            </p>
+            <div class="modal-authors">
+                <p class="modal-authors-label">Авторы проекта</p>
+                <div class="modal-author-cards">
+                    <div class="modal-author-card">
+                        <span class="modal-author-icon">&lt;eg/&gt;</span>
+                        <span class="modal-author-name">Егор Ляпин</span>
+                    </div>
+                    <div class="modal-author-card">
+                        <span class="modal-author-icon">&lt;vl/&gt;</span>
+                        <span class="modal-author-name">Влад Колегин</span>
+                    </div>
+                </div>
+            </div>
+            <p class="modal-hope">Авторы очень надеются получить <strong>5</strong> за этот проект!</p>
+        </div>
+    </div>
+
+    <!-- Модальное окно «Telegram» -->
+    <div class="modal-overlay" id="tgModal" role="dialog" aria-modal="true" aria-labelledby="tgModalTitle">
+        <div class="modal-box">
+            <button class="modal-close" id="closeTgModal" aria-label="Закрыть">&times;</button>
+            <div class="modal-logo">
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="currentColor" style="color:var(--accent)">
+                    <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
+                </svg>
+                <span class="modal-logo-name">Telegram</span>
+            </div>
+            <h2 class="modal-title" id="tgModalTitle">Наш канал</h2>
+            <p class="modal-desc">
+                Подписывайся на <strong>DevPedia</strong> в Telegram — там мы публикуем обновление пректа, новости и полезные советы для разработчиков.
+            </p>
+            <div class="modal-authors">
+                <p class="modal-authors-label">Сканируй с телефона</p>
+                <div id="tgModalQr" style="display:flex;justify-content:center;padding:8px 0"></div>
+            </div>
+            <a href="https://t.me/+tc_MB0SW79A3MThi" target="_blank" rel="noopener" class="modal-tg-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
+                </svg>
+                Открыть Telegram канал
+            </a>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script>
+        // ── Telegram button → modal ──
+        (function () {
+            const btn = document.getElementById('tgToggle');
+            if (btn) {
+                btn.addEventListener('click', function () {
+                    document.getElementById('openTgModal').click();
+                });
+            }
+        })();
+    </script>
+    <script>
+        // ── Burger / fullscreen mobile menu ──
+        (function () {
+            const btn       = document.getElementById('burgerBtn');
+            const menu      = document.getElementById('mobileMenu');
+            const iconOpen  = document.getElementById('burgerIcon');
+            const iconClose = document.getElementById('closeIcon');
+
+            function openMenu() {
+                menu.classList.add('mobile-menu--visible');
+                menu.setAttribute('aria-hidden', 'false');
+                btn.setAttribute('aria-expanded', 'true');
+                iconOpen.style.display  = 'none';
+                iconClose.style.display = '';
+                document.body.style.overflow = 'hidden';
+            }
+            function closeMenu() {
+                menu.classList.remove('mobile-menu--visible');
+                menu.setAttribute('aria-hidden', 'true');
+                btn.setAttribute('aria-expanded', 'false');
+                iconOpen.style.display  = '';
+                iconClose.style.display = 'none';
+                document.body.style.overflow = '';
+            }
+
+            btn.addEventListener('click', function () {
+                menu.classList.contains('mobile-menu--visible') ? closeMenu() : openMenu();
+            });
+
+            // close on nav link tap
+            menu.querySelectorAll('.mobile-menu__link').forEach(function (link) {
+                link.addEventListener('click', closeMenu);
+            });
+
+            document.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape') closeMenu();
+            });
+        })();
+    </script>
+    <script>
+        // ── О сервисе — модальное окно ──
+        (function () {
+            const openBtn  = document.getElementById('openAboutModal');
+            const modal    = document.getElementById('aboutModal');
+            const closeBtn = document.getElementById('closeAboutModal');
+
+            function openModal() {
+                modal.classList.add('modal-overlay--visible');
+                document.body.style.overflow = 'hidden';
+                closeBtn.focus();
+            }
+            function closeModal() {
+                modal.classList.remove('modal-overlay--visible');
+                document.body.style.overflow = '';
+                openBtn.focus();
+            }
+
+            openBtn.addEventListener('click', openModal);
+            closeBtn.addEventListener('click', closeModal);
+            modal.addEventListener('click', function (e) {
+                if (e.target === modal) closeModal();
+            });
+            document.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape' && modal.classList.contains('modal-overlay--visible')) closeModal();
+            });
+        })();
+
+        // ── Telegram modal (mobile menu) ──
+        (function () {
+            const openBtn  = document.getElementById('openTgModal');
+            const modal    = document.getElementById('tgModal');
+            const closeBtn = document.getElementById('closeTgModal');
+            let qrGenerated = false;
+
+            function openModal() {
+                modal.classList.add('modal-overlay--visible');
+                document.body.style.overflow = 'hidden';
+                closeBtn.focus();
+                if (!qrGenerated) {
+                    qrGenerated = true;
+                    new QRCode(document.getElementById('tgModalQr'), {
+                        text: 'https://t.me/+tc_MB0SW79A3MThi',
+                        width: 140,
+                        height: 140,
+                        colorDark: '#7c3aed',
+                        colorLight: 'transparent',
+                        correctLevel: QRCode.CorrectLevel.M
+                    });
+                }
+            }
+            function closeModal() {
+                modal.classList.remove('modal-overlay--visible');
+                document.body.style.overflow = '';
+                openBtn.focus();
+            }
+
+            openBtn.addEventListener('click', openModal);
+            closeBtn.addEventListener('click', closeModal);
+            modal.addEventListener('click', function (e) {
+                if (e.target === modal) closeModal();
+            });
+            document.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape' && modal.classList.contains('modal-overlay--visible')) closeModal();
+            });
+        })();
+
+        // ── Theme toggle ──
+        (function () {
+            const btn  = document.getElementById('themeToggle');
+            const sun  = btn.querySelector('.theme-icon--sun');
+            const moon = btn.querySelector('.theme-icon--moon');
+
+            function applyTheme(theme) {
+                if (theme === 'light') {
+                    document.documentElement.setAttribute('data-theme', 'light');
+                    sun.style.display  = 'none';
+                    moon.style.display = '';
+                } else {
+                    document.documentElement.removeAttribute('data-theme');
+                    sun.style.display  = '';
+                    moon.style.display = 'none';
+                }
+            }
+
+            const saved = localStorage.getItem('devpedia-theme');
+            applyTheme(saved === 'light' ? 'light' : 'dark');
+
+            btn.addEventListener('click', function () {
+                const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+                const next = isLight ? 'dark' : 'light';
+                applyTheme(next);
+                localStorage.setItem('devpedia-theme', next);
+            });
+        })();
+    </script>
+</body>
+</html>

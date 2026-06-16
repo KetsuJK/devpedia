@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+{% set categories = categories %}
+
+{% block title %}DevPedia — Энциклопедия программирования{% endblock %}
+
+{% block content %}
+<!-- Hero -->
+<section class="hero">
+    <div class="container">
+        <div class="hero-content">
+            <div class="hero-badge">v2.1 — обновлено 2026</div>
+            <h1 class="hero-title">Энциклопедия<br><span class="gradient-text">программирования</span></h1>
+            <p class="hero-sub">Структурированные знания по языкам, инструментам и концепциям разработки. Для начинающих и опытных разработчиков.</p>
+            <div class="hero-stats">
+                <div class="stat">
+                    <strong>{{ articles|length }}</strong>
+                    <span>статей</span>
+                </div>
+                <div class="stat">
+                    <strong>{{ categories|length }}</strong>
+                    <span>раздела</span>
+                </div>
+                <div class="stat">
+                    <strong>∞</strong>
+                    <span>знаний</span>
+                </div>
+            </div>
+        </div>
+        <div class="hero-code">
+            <div class="code-window">
+                <div class="code-bar">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                    <span class="code-title">encyclopedia.py</span>
+                </div>
+                <pre class="code-body"><span class="c-kw">from</span> <span class="c-mod">devpedia</span> <span class="c-kw">import</span> Knowledge
+
+<span class="c-kw">class</span> <span class="c-cls">Developer</span>:
+    <span class="c-kw">def</span> <span class="c-fn">__init__</span>(<span class="c-self">self</span>):
+        <span class="c-self">self</span>.skills = []
+        <span class="c-self">self</span>.curiosity = <span class="c-num">float</span>(<span class="c-str">'inf'</span>)
+
+    <span class="c-kw">def</span> <span class="c-fn">learn</span>(<span class="c-self">self</span>, topic):
+        <span class="c-self">self</span>.skills.append(topic)
+        <span class="c-kw">return</span> <span class="c-str">"Уровень растёт!"</span>
+
+me = <span class="c-cls">Developer</span>()
+me.learn(<span class="c-str">"Python"</span>)
+me.learn(<span class="c-str">"Algorithms"</span>)</pre>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Категории -->
+<section class="section">
+    <div class="container">
+        <h2 class="section-title">Разделы энциклопедии</h2>
+        <div class="category-grid">
+            {% for cat_key, cat in categories.items() %}
+            {% set cat_count = articles.values() | selectattr('category', 'equalto', cat_key) | list | length %}
+            <a href="{{ url_for('category', cat_key=cat_key) }}" class="cat-card">
+                <div class="cat-body">
+                    <h3>{{ cat.title }}</h3>
+                    <span class="cat-count">{{ cat_count }} статей</span>
+                </div>
+                <div class="cat-arrow">→</div>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Все статьи -->
+<section class="section section-dark">
+    <div class="container">
+        <h2 class="section-title">Все статьи</h2>
+        <div class="article-grid">
+            {% for key, art in articles.items() %}
+            <a href="{{ url_for('article', article_key=key) }}" class="article-card">
+                <div class="article-body">
+                    <span class="article-cat">{{ art.category_title }}</span>
+                    <h3>{{ art.title }}</h3>
+                    <p>{{ art.short }}</p>
+                </div>
+                <div class="article-footer">
+                    {% if art.course_url %}
+                    <span class="article-course-badge">Есть курс</span>
+                    {% endif %}
+                    <span class="read-link">Читать →</span>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

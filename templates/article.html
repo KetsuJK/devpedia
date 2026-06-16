@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+{% set categories = {
+    "languages": {"title": "Языки программирования", "icon": "💬"},
+    "tools": {"title": "Инструменты", "icon": "🛠"},
+    "cs": {"title": "Computer Science", "icon": "🧠"},
+    "areas": {"title": "Области разработки", "icon": "🚀"},
+} %}
+
+{% block title %}{{ article.title }} — DevPedia{% endblock %}
+
+{% block content %}
+<div class="container article-page">
+    <!-- Breadcrumb -->
+    <nav class="breadcrumb">
+        <a href="{{ url_for('index') }}">Главная</a>
+        <span>›</span>
+        <a href="{{ url_for('category', cat_key=article.category) }}">{{ article.category_title }}</a>
+        <span>›</span>
+        <span>{{ article.title }}</span>
+    </nav>
+
+    <div class="article-layout">
+        <!-- Main content -->
+        <article class="article-main">
+            <div class="article-header">
+                <div>
+                    <span class="article-cat-badge">{{ article.category_title }}</span>
+                    <h1>{{ article.title }}</h1>
+                    <p class="article-lead">{{ article.short }}</p>
+                </div>
+            </div>
+
+            {# ——— БЛОК ДЛЯ ФОТОГРАФИИ ———
+               Чтобы добавить фото к статье:
+               1. Положите файл в static/images/ (например: python.jpg)
+               2. В app.py укажите "image": "python.jpg" для нужной статьи
+               Фото отобразится здесь автоматически.
+            #}
+            {% if article.image %}
+            <div class="article-image-wrap">
+                <img src="{{ url_for('static', filename='images/' + article.image) }}"
+                     alt="{{ article.title }}"
+                     class="article-image">
+            </div>
+            {% endif %}
+
+            <div class="article-content">
+                {{ article.text | safe }}
+            </div>
+        </article>
+
+        <!-- Sidebar -->
+        <aside class="article-sidebar">
+            <div class="sidebar-card">
+                <h3>Раздел</h3>
+                <a href="{{ url_for('category', cat_key=article.category) }}" class="sidebar-cat-link">
+                    {{ article.category_title }}
+                </a>
+            </div>
+
+            {% if related %}
+            <div class="sidebar-card">
+                <h3>По теме</h3>
+                <ul class="related-list">
+                    {% for key, rel in related.items() %}
+                    <li>
+                        <a href="{{ url_for('article', article_key=key) }}">
+                            {{ rel.title }}
+                        </a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+
+            <div class="sidebar-card">
+                <h3>Все разделы</h3>
+                <ul class="sidebar-cats">
+                    {% for cat_key, cat in categories.items() %}
+                    <li>
+                        <a href="{{ url_for('category', cat_key=cat_key) }}">
+                            {{ cat.title }}
+                        </a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            {% if article.course_url %}
+            <div class="sidebar-card sidebar-card--course">
+                <div class="course-label">Курс для обучения</div>
+                <p class="course-title">{{ article.course_title }}</p>
+                <a href="{{ article.course_url }}" target="_blank" rel="noopener" class="course-btn">
+                    Перейти к курсу →
+                </a>
+            </div>
+            {% endif %}
+        </aside>
+    </div>
+</div>
+{% endblock %}
