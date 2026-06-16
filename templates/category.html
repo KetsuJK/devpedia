@@ -25,6 +25,9 @@
                 <p>{{ art.short }}</p>
             </div>
             <div class="article-footer">
+                {% if art.course_url %}
+                <span class="article-course-badge">Есть курс</span>
+                {% endif %}
                 <span class="read-link">Читать →</span>
             </div>
         </a>

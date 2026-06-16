@@ -152,7 +152,7 @@ git push origin feature/auth</code></pre>
     "algorithms": {
         "title": "Алгоритмы и структуры данных",
         "category": "cs",
-        "category_title": "Computer Science",
+        "category_title": "Информатика",
         "icon": "🧮",
         "short": "Фундаментальные алгоритмы и структуры данных, основа CS",
         "image": None,
@@ -201,7 +201,7 @@ O(2ⁿ)      — экспоненциальное. Перебор подмнож
     "oop": {
         "title": "ООП",
         "category": "cs",
-        "category_title": "Computer Science",
+        "category_title": "Информатика",
         "icon": "🏗️",
         "short": "Объектно-ориентированное программирование — парадигма разработки",
         "image": None,
@@ -708,7 +708,7 @@ token = jwt.encode(
     "networking": {
         "title": "Компьютерные сети",
         "category": "cs",
-        "category_title": "Computer Science",
+        "category_title": "Информатика",
         "icon": "🌍",
         "short": "TCP/IP, DNS, HTTP/2, WebSocket — как работает интернет",
         "image": None,
@@ -1045,7 +1045,7 @@ Ctrl+Shift+F    — поиск по всему проекту</code></pre>
     "patterns": {
         "title": "Паттерны проектирования",
         "category": "cs",
-        "category_title": "Computer Science",
+        "category_title": "Информатика",
         "icon": "🎨",
         "short": "Классические решения типичных задач проектирования программных систем",
         "image": None,
@@ -1098,7 +1098,7 @@ emitter.emit('data', 42)</code></pre>
     "testing": {
         "title": "Тестирование ПО",
         "category": "cs",
-        "category_title": "Computer Science",
+        "category_title": "Информатика",
         "icon": "✅",
         "short": "Методологии и инструменты тестирования: unit, integration, e2e, TDD",
         "image": None,
@@ -1290,7 +1290,7 @@ DELETE /api/v1/users/{id}  — удалить</code></pre>
     "concurrency": {
         "title": "Конкурентность и параллелизм",
         "category": "cs",
-        "category_title": "Computer Science",
+        "category_title": "Информатика",
         "icon": "⚡",
         "short": "Потоки, процессы, асинхронность и модели конкурентного выполнения",
         "image": None,
@@ -1338,14 +1338,486 @@ async def main():
             </ul>
         """
     },
+
+    "kotlin": {
+        "title": "Kotlin",
+        "category": "languages",
+        "category_title": "Языки программирования",
+        "icon": "🟣",
+        "short": "Современный JVM-язык от JetBrains, официальный язык Android-разработки",
+        "image": None,
+        "course_title": "Kotlin для начинающих",
+        "course_url": "https://stepik.org/course/5448/promo",
+        "text": """
+            <p>Kotlin — статически типизированный язык программирования, разработанный компанией JetBrains и выпущенный в 2016 году. В 2017 году Google объявил его <strong>официальным языком Android-разработки</strong>. Сегодня Kotlin используется и на бэкенде (Ktor, Spring), и в мультиплатформенных проектах.</p>
+
+            <h3>Почему Kotlin лучше Java?</h3>
+            <ul>
+                <li><strong>Null Safety</strong> — компилятор запрещает передавать null туда, где его не ждут. Тип <code>String</code> гарантированно не null, <code>String?</code> — может быть null. Устраняет целый класс ошибок NullPointerException</li>
+                <li><strong>Data classes</strong> — одна строка заменяет десятки строк Java-бойлерплейта: equals, hashCode, toString, copy генерируются автоматически</li>
+                <li><strong>Extension functions</strong> — можно добавлять методы к существующим классам без наследования</li>
+                <li><strong>Smart casts</strong> — после проверки <code>if (x is String)</code> компилятор сам кастует переменную, не нужно явного приведения типов</li>
+                <li><strong>Coroutines</strong> — встроенная поддержка асинхронности без callback hell</li>
+            </ul>
+
+            <h3>Ключевые концепции</h3>
+            <pre><code>// Data class — компилятор генерирует equals/hashCode/toString
+data class User(val name: String, val age: Int)
+
+// Null safety
+fun greet(name: String?) {
+    val safe = name ?: "Аноним"  // Elvis-оператор
+    println("Привет, $safe!")
+}
+
+// Extension function
+fun String.isPalindrome() = this == this.reversed()
+println("racecar".isPalindrome())  // true
+
+// Coroutines
+suspend fun fetchData(): String {
+    delay(1000)  // Не блокирует поток!
+    return "Данные получены"
+}</code></pre>
+
+            <h3>Kotlin Multiplatform</h3>
+            <p>KMP позволяет писать бизнес-логику один раз и использовать её на Android, iOS, десктопе и в браузере. Крупные компании вроде Netflix уже используют KMP в продакшене.</p>
+
+            <h3>Корутины vs Threads</h3>
+            <p>Одна корутина потребляет около 1 КБ памяти против 1 МБ для системного потока. Приложение может запустить миллион корутин без проблем. Они работают через <em>suspend functions</em> — функции, которые умеют приостанавливаться без блокировки потока.</p>
+
+            <p><strong>Создатель:</strong> JetBrains | <strong>Год:</strong> 2016 | <strong>Платформы:</strong> JVM, Android, Native, JS, WASM</p>
+        """
+    },
+    "sql": {
+        "title": "SQL",
+        "category": "databases",
+        "category_title": "Базы данных",
+        "icon": "🗄️",
+        "short": "Язык структурированных запросов для работы с реляционными базами данных",
+        "image": None,
+        "course_title": "SQL для начинающих",
+        "course_url": "https://stepik.org/course/51562/promo",
+        "text": """
+            <p>SQL (Structured Query Language) — декларативный язык для управления реляционными базами данных. Придуман в IBM в 1974 году на основе реляционной алгебры Эдгара Кодда. По данным Stack Overflow, SQL входит в топ-5 востребованных технологий уже более 10 лет подряд.</p>
+
+            <h3>Базовые операции (CRUD)</h3>
+            <pre><code>-- Создание таблицы
+CREATE TABLE users (
+    id        SERIAL PRIMARY KEY,
+    name      VARCHAR(100) NOT NULL,
+    email     VARCHAR(255) UNIQUE NOT NULL,
+    age       INTEGER CHECK (age &gt;= 0),
+    created_at TIMESTAMP DEFAULT NOW()
+);
+
+-- Вставка
+INSERT INTO users (name, email, age) VALUES ('Алекс', 'alex@mail.ru', 25);
+
+-- Чтение с условием
+SELECT name, email FROM users WHERE age &gt; 18 ORDER BY name LIMIT 10;
+
+-- Обновление
+UPDATE users SET age = 26 WHERE email = 'alex@mail.ru';
+
+-- Удаление
+DELETE FROM users WHERE id = 42;</code></pre>
+
+            <h3>JOIN — объединение таблиц</h3>
+            <pre><code>-- INNER JOIN: только совпадения в обеих таблицах
+SELECT u.name, o.product, o.price
+FROM users u
+INNER JOIN orders o ON u.id = o.user_id;
+
+-- LEFT JOIN: все пользователи + их заказы (или NULL)
+SELECT u.name, COUNT(o.id) as order_count
+FROM users u
+LEFT JOIN orders o ON u.id = o.user_id
+GROUP BY u.id, u.name;</code></pre>
+
+            <h3>Агрегация и группировка</h3>
+            <pre><code>-- Топ-5 категорий по выручке
+SELECT
+    category,
+    COUNT(*)    as total_orders,
+    SUM(price)  as revenue,
+    AVG(price)  as avg_price
+FROM orders
+WHERE created_at &gt;= '2024-01-01'
+GROUP BY category
+HAVING SUM(price) &gt; 10000
+ORDER BY revenue DESC
+LIMIT 5;</code></pre>
+
+            <h3>Индексы — секрет быстрых запросов</h3>
+            <p>Без индекса база сканирует каждую строку (Full Table Scan). С индексом — находит нужное за O(log n). Платить приходится местом на диске и скоростью вставки.</p>
+            <pre><code>CREATE INDEX idx_users_email ON users(email);
+CREATE INDEX idx_orders_user_date ON orders(user_id, created_at DESC);
+
+-- Проверяем план запроса
+EXPLAIN ANALYZE SELECT * FROM users WHERE email = 'alex@mail.ru';</code></pre>
+
+            <h3>Популярные СУБД</h3>
+            <ul>
+                <li><strong>PostgreSQL</strong> — самая мощная OpenSource СУБД: JSON, массивы, геоданные, полнотекстовый поиск</li>
+                <li><strong>MySQL / MariaDB</strong> — классика веба, используется в большинстве сайтов на WordPress</li>
+                <li><strong>SQLite</strong> — файловая БД без сервера, встроена в Android, iOS, браузеры</li>
+                <li><strong>MS SQL Server / Oracle</strong> — корпоративный сегмент</li>
+            </ul>
+
+            <p><strong>Стандарт:</strong> ISO/IEC 9075 | <strong>Год:</strong> 1974 | <strong>Парадигма:</strong> декларативная</p>
+        """
+    },
+    "redis": {
+        "title": "Redis",
+        "category": "databases",
+        "category_title": "Базы данных",
+        "icon": "🔴",
+        "short": "In-memory хранилище: кэш, очереди, сессии — быстрее любой реляционной БД",
+        "image": None,
+        "course_title": "Redis полный курс",
+        "course_url": "https://stepik.org/course/122441/promo",
+        "text": """
+            <p>Redis (Remote Dictionary Server) — хранилище данных в оперативной памяти с открытым исходным кодом. Создан Сальваторе Санфилиппо в 2009 году. Работает в 10–100 раз быстрее традиционных баз данных. Используется в Instagram, Twitter, GitHub, Stack Overflow.</p>
+
+            <h3>Структуры данных Redis</h3>
+            <ul>
+                <li><strong>String</strong> — простое значение, счётчики, JSON</li>
+                <li><strong>List</strong> — двусвязный список, очереди задач</li>
+                <li><strong>Hash</strong> — объект с полями, профиль пользователя</li>
+                <li><strong>Set</strong> — уникальные значения, теги, пересечения</li>
+                <li><strong>Sorted Set</strong> — элементы с оценкой, рейтинги и лидерборды</li>
+                <li><strong>Stream</strong> — лог событий, альтернатива Kafka</li>
+            </ul>
+
+            <h3>Примеры использования</h3>
+            <pre><code># Кэширование с TTL (время жизни 1 час)
+SET user:1:profile '{"name":"Алекс"}' EX 3600
+GET user:1:profile
+
+# Счётчик просмотров (атомарно)
+INCR page:views:article:42
+
+# Очередь задач
+LPUSH tasks '{"type":"send_email","to":"user@mail.ru"}'
+BRPOP tasks 0  # Блокирующее извлечение
+
+# Лидерборд игры
+ZADD leaderboard 9500 "Алекс"
+ZADD leaderboard 8200 "Мария"
+ZREVRANGE leaderboard 0 9 WITHSCORES  # Топ-10</code></pre>
+
+            <h3>Персистентность</h3>
+            <ul>
+                <li><strong>RDB (снэпшоты)</strong> — полный слепок данных каждые N минут. Быстрое восстановление</li>
+                <li><strong>AOF (Append-Only File)</strong> — логирует каждую команду. Никаких потерь, но файл растёт</li>
+            </ul>
+
+            <h3>Redis как очередь задач</h3>
+            <p>С библиотеками <strong>Celery (Python)</strong> или <strong>BullMQ (Node.js)</strong> Redis становится мощным брокером задач. Воркеры берут задачи из очереди, выполняют, отмечают результат.</p>
+
+            <p><strong>Создатель:</strong> Сальваторе Санфилиппо | <strong>Год:</strong> 2009 | <strong>Скорость:</strong> 100 000+ операций/сек</p>
+        """
+    },
+    "react": {
+        "title": "React",
+        "category": "areas",
+        "category_title": "Области разработки",
+        "icon": "⚛️",
+        "short": "Библиотека для построения пользовательских интерфейсов от Meta",
+        "image": None,
+        "course_title": "React — полный курс",
+        "course_url": "https://stepik.org/course/173374/promo",
+        "text": """
+            <p>React — JavaScript-библиотека для создания пользовательских интерфейсов, разработанная в Facebook и открытая в 2013 году. Сегодня React — самый популярный UI-фреймворк в мире: его используют Meta, Netflix, Airbnb, Discord, WhatsApp Web.</p>
+
+            <h3>Компонентный подход</h3>
+            <p>Интерфейс разбивается на независимые компоненты. Каждый компонент — функция, принимающая данные (props) и возвращающая JSX.</p>
+            <pre><code>function UserCard({ name, avatar, role }) {
+  return (
+    &lt;div className="card"&gt;
+      &lt;img src={avatar} alt={name} /&gt;
+      &lt;h2&gt;{name}&lt;/h2&gt;
+      &lt;p&gt;{role}&lt;/p&gt;
+    &lt;/div&gt;
+  );
+}
+
+&lt;UserCard name="Алекс" avatar="/alex.jpg" role="Frontend Dev" /&gt;</code></pre>
+
+            <h3>Хуки — сердце современного React</h3>
+            <pre><code>import { useState, useEffect } from 'react';
+
+function Counter() {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    document.title = `Счётчик: ${count}`;
+  }, [count]);
+
+  return (
+    &lt;button onClick={() =&gt; setCount(c =&gt; c + 1)}&gt;
+      Нажато: {count}
+    &lt;/button&gt;
+  );
+}</code></pre>
+
+            <h3>Virtual DOM</h3>
+            <p>React хранит виртуальную копию DOM в памяти. При изменении состояния сравнивает новый Virtual DOM со старым, находит минимальный набор изменений и применяет только их. Это в разы быстрее прямой работы с DOM.</p>
+
+            <h3>Экосистема</h3>
+            <ul>
+                <li><strong>Next.js</strong> — фулстек-фреймворк: SSR, роутинг, API routes</li>
+                <li><strong>React Native</strong> — мобильные приложения для iOS и Android</li>
+                <li><strong>Zustand / Redux</strong> — управление глобальным состоянием</li>
+                <li><strong>React Query / SWR</strong> — загрузка и кэширование данных с сервера</li>
+                <li><strong>Vite</strong> — молниеносная сборка проектов</li>
+            </ul>
+
+            <p><strong>Создатель:</strong> Jordan Walke (Meta) | <strong>Год:</strong> 2013 | <strong>Версия:</strong> React 19</p>
+        """
+    },
+    "data_structures": {
+        "title": "Структуры данных",
+        "category": "cs",
+        "category_title": "Информатика",
+        "icon": "🌳",
+        "short": "Массивы, списки, деревья, графы — фундамент эффективных программ",
+        "image": None,
+        "course_title": "Алгоритмы и структуры данных",
+        "course_url": "https://stepik.org/course/1547/promo",
+        "text": """
+            <p>Структура данных — способ организации и хранения данных в памяти компьютера. Выбор правильной структуры — это 80% успеха любого алгоритма. Понимание структур данных — обязательное требование на технических интервью в Google, Яндекс, VK.</p>
+
+            <h3>Массив (Array)</h3>
+            <p>Элементы хранятся последовательно в памяти. Доступ по индексу за O(1). Вставка/удаление в середину — O(n), потому что нужно сдвигать элементы.</p>
+
+            <h3>Хэш-таблица (Hash Map)</h3>
+            <p>Доступ, вставка и удаление за O(1) в среднем. Ключ проходит через хэш-функцию, результат — индекс в массиве.</p>
+            <pre><code># Python dict — это хэш-таблица
+phone_book = {}
+phone_book["Алекс"] = "+7-900-123-45-67"  # O(1)
+print(phone_book["Алекс"])                 # O(1)</code></pre>
+
+            <h3>Стек (Stack) и Очередь (Queue)</h3>
+            <ul>
+                <li><strong>Стек — LIFO</strong> (Last In, First Out): как стопка тарелок. Применение: отмена действий, рекурсия, скобочные выражения</li>
+                <li><strong>Очередь — FIFO</strong> (First In, First Out): как очередь в кассе. Применение: BFS-обход графа, очереди задач</li>
+            </ul>
+
+            <h3>Дерево (Tree)</h3>
+            <ul>
+                <li><strong>BST (Бинарное дерево поиска)</strong> — левее меньше, правее больше. Поиск/вставка за O(log n)</li>
+                <li><strong>Heap (Куча)</strong> — родитель всегда больше детей. Основа Priority Queue</li>
+                <li><strong>Trie (Префиксное дерево)</strong> — автодополнение и поиск слов</li>
+            </ul>
+
+            <h3>Граф (Graph)</h3>
+            <p>Набор вершин и рёбер. Социальные сети, карты городов, зависимости пакетов — всё это графы. Обходы: BFS (в ширину) и DFS (в глубину) — основа большинства алгоритмов на графах.</p>
+
+            <h3>Шпаргалка по сложности</h3>
+            <ul>
+                <li>Массив: доступ O(1), поиск O(n), вставка O(n)</li>
+                <li>Хэш-таблица: O(1) для всего в среднем</li>
+                <li>BST сбалансированное: O(log n) для всего</li>
+                <li>Heap: O(log n) вставка, O(1) получение min/max</li>
+            </ul>
+        """
+    },
+    "regex": {
+        "title": "Регулярные выражения",
+        "category": "tools",
+        "category_title": "Инструменты",
+        "icon": "🔍",
+        "short": "Мощный мини-язык для поиска и замены текста по шаблонам",
+        "image": None,
+        "course_title": "Регулярные выражения",
+        "course_url": "https://stepik.org/course/107335/promo",
+        "text": """
+            <p>Регулярные выражения (regex) — формальный язык для поиска и замены текста по паттернам. Изобретены математиком Стивеном Клини в 1956 году. Незаменимы для парсинга, валидации данных, обработки логов.</p>
+
+            <h3>Базовые символы</h3>
+            <ul>
+                <li><code>.</code> — любой символ кроме переноса строки</li>
+                <li><code>\\d</code> — цифра [0-9], <code>\\D</code> — не цифра</li>
+                <li><code>\\w</code> — буква/цифра/underscore</li>
+                <li><code>\\s</code> — пробельный символ</li>
+                <li><code>^</code> — начало строки, <code>$</code> — конец строки</li>
+                <li><code>[abc]</code> — один из символов, <code>[^abc]</code> — любой кроме</li>
+            </ul>
+
+            <h3>Квантификаторы</h3>
+            <ul>
+                <li><code>*</code> — ноль или более, <code>+</code> — один или более</li>
+                <li><code>?</code> — ноль или один (необязательный)</li>
+                <li><code>{2,5}</code> — от 2 до 5 раз</li>
+                <li><code>*?</code> — ленивый (минимальное совпадение)</li>
+            </ul>
+
+            <h3>Практические примеры на Python</h3>
+            <pre><code>import re
+
+# Валидация email
+pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$'
+is_valid = bool(re.match(pattern, "user@example.com"))
+
+# Маскировка карточных данных
+text = "Карта: 4532 1234 5678 9012"
+masked = re.sub(r'(\\d{4} ){3}', '#### #### #### ', text)
+# Результат: "Карта: #### #### #### 9012"
+
+# Группы — извлечь части URL
+url = "https://example.com:8080/path"
+match = re.search(r'(https?)://([^/:]+)(?::(\\d+))?', url)
+protocol, host, port = match.groups()  # https, example.com, 8080</code></pre>
+
+            <h3>Lookahead и Lookbehind</h3>
+            <pre><code># Lookahead: числа перед знаком $
+re.findall(r'\\d+(?=\\$)', "100$ и 200€")  # ['100']
+
+# Lookbehind: числа после символа #
+re.findall(r'(?&lt;=#)\\d+', "#42 #100")  # ['42', '100']</code></pre>
+
+            <p><strong>Совет:</strong> Тестируйте regex на <strong>regex101.com</strong> — там интерактивное объяснение каждого символа в реальном времени.</p>
+        """
+    },
+    "clean_code": {
+        "title": "Чистый код",
+        "category": "cs",
+        "category_title": "Информатика",
+        "icon": "✨",
+        "short": "Принципы написания кода, который легко читать, понимать и поддерживать",
+        "image": None,
+        "course_title": "Принципы написания чистого кода",
+        "course_url": "https://stepik.org/course/175878/promo",
+        "text": """
+            <p>Чистый код — код, который легко читается, понимается и изменяется. Концепцию популяризировал Роберт Мартин (Uncle Bob) в книге «Clean Code» (2008). Главный принцип: <em>«Код пишется один раз, а читается десятки раз»</em>.</p>
+
+            <h3>Именование — важнее, чем кажется</h3>
+            <pre><code># Плохо
+def calc(a, b, fl):
+    if fl:
+        return a * b * 0.9
+    return a * b
+
+# Хорошо
+DISCOUNT_RATE = 0.9
+
+def calculate_order_total(price: float, quantity: int, apply_discount: bool) -> float:
+    total = price * quantity
+    return total * DISCOUNT_RATE if apply_discount else total</code></pre>
+
+            <h3>Функции — одна ответственность</h3>
+            <p>Принцип SRP: функция должна делать одну вещь. Если функцию сложно назвать — значит, она делает слишком много.</p>
+            <pre><code># Плохо — функция делает 3 вещи
+def process_user(data):
+    validate(data)
+    db.save(data)
+    send_email(data['email'])
+
+# Хорошо — разбиваем на отдельные функции
+def register_user(data):
+    validate_user(data)
+    save_user(data)
+    send_welcome_email(data['email'])</code></pre>
+
+            <h3>Комментарии — когда нужны</h3>
+            <p>Хороший код документирует себя сам. Комментарий нужен, когда код объясняет <em>как</em>, но не объясняет <em>почему</em>.</p>
+            <pre><code># Плохо — очевидный комментарий
+i = i + 1  # Увеличиваем i на 1
+
+# Хорошо — объясняем неочевидное бизнес-правило
+import math
+# По бизнес-правилам округление всегда в большую сторону
+units = math.ceil(total / unit_size)</code></pre>
+
+            <h3>Принципы SOLID</h3>
+            <ul>
+                <li><strong>S</strong>ingle Responsibility — один класс, одна причина изменяться</li>
+                <li><strong>O</strong>pen/Closed — открыт для расширения, закрыт для изменения</li>
+                <li><strong>L</strong>iskov Substitution — подкласс можно заменить базовым классом</li>
+                <li><strong>I</strong>nterface Segregation — много маленьких интерфейсов лучше одного большого</li>
+                <li><strong>D</strong>ependency Inversion — зависеть от абстракций, не от конкреций</li>
+            </ul>
+
+            <h3>Правило бойскаута</h3>
+            <p><em>«Оставь лагерь чище, чем нашёл»</em>. Каждый раз открывая файл — улучшай его чуть-чуть: переименуй переменную, разбей функцию, удали дубликат. Маленькие улучшения накапливаются и меняют весь проект.</p>
+        """
+    },
+    "graphql": {
+        "title": "GraphQL",
+        "category": "areas",
+        "category_title": "Области разработки",
+        "icon": "🔷",
+        "short": "Язык запросов для API: клиент сам выбирает, какие данные получить",
+        "image": None,
+        "course_title": "GraphQL для разработчиков",
+        "course_url": "https://stepik.org/course/155504/promo",
+        "text": """
+            <p>GraphQL — язык запросов для API, разработанный Facebook в 2012 году и открытый в 2015-м. Главная идея: <strong>клиент сам описывает, что именно ему нужно</strong>, и получает ровно эти данные.</p>
+
+            <h3>Проблема REST, которую решает GraphQL</h3>
+            <ul>
+                <li><strong>Over-fetching</strong> — API возвращает лишние данные. Нужно только имя, а приходят 30 полей</li>
+                <li><strong>Under-fetching</strong> — для одного экрана нужно 3–5 запросов к разным эндпоинтам</li>
+            </ul>
+            <p>GraphQL решает обе проблемы: один запрос, только нужные поля.</p>
+
+            <h3>Запрос и ответ</h3>
+            <pre><code>query {
+  user(id: "1") {
+    name
+    email
+    posts(last: 3) {
+      title
+      comments { count }
+    }
+  }
+}</code></pre>
+
+            <h3>Типы операций</h3>
+            <ul>
+                <li><strong>Query</strong> — чтение данных (как GET в REST)</li>
+                <li><strong>Mutation</strong> — изменение данных (POST/PUT/DELETE)</li>
+                <li><strong>Subscription</strong> — события в реальном времени через WebSocket</li>
+            </ul>
+
+            <h3>Schema — контракт между клиентом и сервером</h3>
+            <pre><code>type User {
+  id: ID!
+  name: String!
+  posts: [Post!]!
+}
+
+type Query {
+  user(id: ID!): User
+}
+
+type Mutation {
+  createPost(title: String!, body: String!): Post!
+}</code></pre>
+
+            <h3>GraphQL vs REST</h3>
+            <ul>
+                <li><strong>Гибкость</strong> — GraphQL: клиент управляет данными</li>
+                <li><strong>Кэширование</strong> — REST: HTTP кэш из коробки</li>
+                <li><strong>Типизация</strong> — GraphQL: строгая схема как живая документация</li>
+            </ul>
+
+            <p>GitHub, Shopify, Twitter используют GraphQL для своих публичных API.</p>
+
+            <p><strong>Создатель:</strong> Meta (Facebook) | <strong>Год открытия:</strong> 2015 | <strong>Спецификация:</strong> graphql.org</p>
+        """
+    },
 }
 
 # Категории для навигации
 CATEGORIES = {
     "languages": {"title": "Языки программирования", "icon": "💬"},
     "tools": {"title": "Инструменты", "icon": "🛠"},
-    "cs": {"title": "Computer Science", "icon": "🧠"},
+    "cs": {"title": "Информатика", "icon": "🧠"},
     "areas": {"title": "Области разработки", "icon": "🚀"},
+    "databases": {"title": "Базы данных", "icon": "🗄️"},
 }
 
 
@@ -1362,7 +1834,7 @@ def article(article_key):
     # Похожие статьи из той же категории
     related = {k: v for k, v in ARTICLES.items()
                if v['category'] == art['category'] and k != article_key}
-    return render_template('article.html', article=art, article_key=article_key, related=related)
+    return render_template('article.html', article=art, article_key=article_key, related=related, all_categories=CATEGORIES)
 
 
 @app.route('/category/<cat_key>')

@@ -1,10 +1,5 @@
 {% extends "base.html" %}
-{% set categories = {
-    "languages": {"title": "Языки программирования", "icon": "💬"},
-    "tools": {"title": "Инструменты", "icon": "🛠"},
-    "cs": {"title": "Computer Science", "icon": "🧠"},
-    "areas": {"title": "Области разработки", "icon": "🚀"},
-} %}
+{% set categories = all_categories %}
 
 {% block title %}{{ article.title }} — DevPedia{% endblock %}
 
